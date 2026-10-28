@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gabriel Couto</title>
+<meta name="description" content="Gabriel Couto — Research Analyst at the Stanford Graduate School of Education working on education, development, and public health.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #ffffff;
+    --text: #1f2328;
+    --muted: #646a73;
+    --line: #e8e8e8;
+    --soft: #f6f6f4;
+    --accent: #8c1515;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #141414; --text: #e9e9e9; --muted: #a2a2a2; --line: #2a2a2a; --soft: #1c1c1c; --accent: #e8817b; }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.7 "Inter", system-ui, sans-serif; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+  .serif { font-family: "Source Serif 4", Georgia, serif; }
+
+  nav { position: sticky; top: 0; z-index: 10; background: color-mix(in srgb, var(--bg) 92%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+  nav .wrap { display: flex; justify-content: space-between; align-items: center; height: 54px; }
+  nav .name { font-family: "Source Serif 4", serif; font-weight: 600; font-size: 17px; color: var(--text); }
+  nav ul { list-style: none; display: flex; gap: 24px; margin: 0; padding: 0; }
+  nav ul a { color: var(--muted); font-size: 14px; }
+  nav ul a:hover, nav ul a.active { color: var(--text); text-decoration: none; }
+
+  /* header */
+  header { text-align: center; padding: 64px 0 44px; }
+  header img { width: 164px; height: 164px; border-radius: 50%; object-fit: cover; }
+  h1 { font-family: "Source Serif 4", serif; font-weight: 600; font-size: 40px; line-height: 1.15; margin: 22px 0 8px; }
+  .title { margin: 0; font-size: 16px; }
+  .title + .title { color: var(--muted); font-size: 15px; }
+  .links { display: flex; justify-content: center; gap: 10px; margin-top: 20px; }
+  .links a { font-size: 14px; color: var(--text); border: 1px solid var(--line); border-radius: 6px; padding: 6px 16px; transition: border-color .2s, color .2s; }
+  .links a:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+
+  /* about */
+  .about { display: grid; grid-template-columns: 1fr 260px; gap: 48px; padding: 40px 0 56px; border-top: 1px solid var(--line); }
+  .about p { margin: 0 0 14px; font-size: 17px; }
+  .about .interests { font-size: 15px; color: var(--muted); margin-top: 20px; }
+  .about .interests strong { color: var(--text); font-weight: 500; display: block; margin-bottom: 4px; }
+  aside { border-left: 1px solid var(--line); padding-left: 24px; font-size: 14.5px; }
+  aside h4 { font-size: 12px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 0 0 14px; }
+  aside .deg { margin-bottom: 16px; line-height: 1.5; }
+  aside .deg b { font-weight: 500; display: block; }
+  aside .deg span { color: var(--muted); }
+
+  /* sections */
+  section { padding: 48px 0; border-top: 1px solid var(--line); }
+  h2 { font-family: "Source Serif 4", serif; font-weight: 600; font-size: 28px; margin: 0 0 30px; }
+  .item { margin-bottom: 40px; }
+  .item:last-child { margin-bottom: 0; }
+  .item h3 { font-family: "Source Serif 4", serif; font-weight: 600; font-size: 20px; line-height: 1.3; margin: 0; }
+  .meta { color: var(--muted); font-size: 14px; margin: 3px 0 10px; }
+  .item p { margin: 0; }
+  .item .more { font-size: 14px; margin-top: 10px; display: flex; gap: 16px; flex-wrap: wrap; }
+  .thumbs { display: flex; gap: 10px; margin-top: 14px; flex-wrap: wrap; }
+  .thumbs img { width: 132px; height: 96px; object-fit: cover; border-radius: 6px; cursor: zoom-in; background: var(--soft); transition: opacity .2s; }
+  .thumbs img:hover { opacity: .85; }
+  .note { font-size: 15px; color: var(--muted); padding-top: 4px; }
+  .note b { color: var(--text); font-weight: 500; }
+
+  .contact p { margin: 0; font-size: 17px; }
+  footer { padding: 32px 0 48px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
+
+  /* lightbox */
+  .lb { position: fixed; inset: 0; z-index: 50; background: rgba(0,0,0,.85); display: none; align-items: center; justify-content: center; padding: 24px; cursor: zoom-out; }
+  .lb.open { display: flex; }
+  .lb img { max-width: 100%; max-height: 90vh; border-radius: 6px; }
+
+  /* scroll reveal */
+  .reveal { opacity: 0; transform: translateY(14px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+
+  @media (max-width: 720px) {
+    nav ul { gap: 16px; }
+    nav ul li.hide-sm { display: none; }
+    h1 { font-size: 34px; }
+    .about { grid-template-columns: 1fr; gap: 28px; }
+    aside { border-left: 0; padding-left: 0; border-top: 1px solid var(--line); padding-top: 24px; }
+    .thumbs img { width: calc(50% - 5px); height: 120px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="name" href="#top">Gabriel Couto</a>
+    <ul>
+      <li><a href="#research">Research</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li class="hide-sm"><a href="#activism">Activism</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main class="wrap" id="top">
+
+  <header>
+    <img src="photo.jpg" alt="Gabriel Couto">
+    <h1>Gabriel Couto</h1>
+    <p class="title">Research Analyst, Stanford Graduate School of Education</p>
+    <div class="links">
+      <a href="mailto:couto@stanford.edu">Email</a>
+      <a href="https://www.linkedin.com/in/garabelo/" target="_blank" rel="noopener">LinkedIn</a>
+      <!-- <a href="cv.pdf" target="_blank">CV</a> -->
+    </div>
+  </header>
+
+  <div class="about reveal">
+    <div>
+      <p>Born and raised in Brazil. I aim to democratize access to education, reduce poverty, and advance economic development through innovation and evidence-based policy, practice, and research.</p>
+      <p>At Stanford, I work as a Research Analyst at the Graduate School of Education, affiliated with the Center for Population Health Sciences at the School of Medicine. I am a former fellow of the Lemann Center for Educational Entrepreneurship and Innovation in Brazil (Stanford GSE) and a former student fellow at the Hoover Institution.</p>
+      <div class="interests">
+        <strong>Fields of interest</strong>
+        AI &amp; Education · Data Science · Development Economics · Econometrics · Economics of Education · Education in Extreme Settings · International Education Policy · Machine Learning · Poverty, Violence and Inequality · Public Health · Public Policy · Technical and Vocational Education and Training (TVET)
+      </div>
+    </div>
+    <aside>
+      <h4>Education</h4>
+      <div class="deg"><b>M.A., Policy, Organization, and Leadership Studies</b><span>Stanford Graduate School of Education<br>Lemann Fellow</span></div>
+      <div class="deg"><b>B.S., Econometrics and Quantitative Economics; International Studies</b><span>University of South Florida</span></div>
+    </aside>
+  </div>
+
+  <section id="research">
+    <h2 class="reveal">Research</h2>
+
+    <div class="item reveal">
+      <h3>Education and Primary Healthcare</h3>
+      <div class="meta">Stanford Graduate School of Education · Center for Population Health Sciences, Stanford Medicine · Current</div>
+      <p>This project examines the relationship between education and primary healthcare. It relies on data collection and statistical analysis to understand how the two are linked, with the goal of informing policies that strengthen both systems and improve population health and educational outcomes.</p>
+    </div>
+
+    <div class="item reveal">
+      <h3>Student Journeys at a Kenyan TVET College</h3>
+      <div class="meta">Stanford Seed · Rift Valley Institute of Business Studies, Nakuru, Kenya · 2026</div>
+      <p>A nine-week field project at a technical and vocational college in Kenya's Rift Valley, aimed at understanding students' journeys and how to improve their experience. Classroom observations, a survey of 348 students, and the college's admissions records were combined to look at skills preparation, absenteeism, and plans after graduation, alongside research on the job market in Kenya and the Great Rift Valley region. The project also showed how stronger data practices can support the college's decision making.</p>
+      <div class="thumbs"><img src="images/kenya-1.jpg" alt="Group photo at the Rift Valley Institute of Business Studies"><img src="images/kenya-2.jpg" alt="Workshop at RVIBS"></div>
+    </div>
+
+    <div class="item reveal">
+      <h3>Machine Learning in Education Policy Analysis</h3>
+      <div class="meta">Stanford University · 2026</div>
+      <p>Using data from Brazil's national SAEB assessment, this project applied Random Forest models to identify which municipal education management practices, such as resource allocation, school infrastructure, and performance incentives, are most predictive of student learning. The results highlight nonlinear relationships in education data and the limits of predicting performance from administrative variables alone.</p>
+      <div class="more"><a href="files/ml-education-report.pdf">Report</a><a href="files/ml-education-poster.pdf">Poster</a></div>
+    </div>
+
+    <div class="item reveal">
+      <h3>Small Island Developing States</h3>
+      <div class="meta">United Nations Office for Project Services · 2024</div>
+      <p>Research on socioeconomic conditions, education, and community structures across more than 50 Small Island Developing States. The resulting reports were used at COP 29 and the 4th International Conference on Small Island Developing States to help decision-makers understand these countries' needs. The project also included translating fieldwork documents for Portuguese- and French-speaking states such as Cape Verde and Timor-Leste.</p>
+      <div class="thumbs" data-remote>
+        <img src="https://gabrielcouto.weebly.com/uploads/1/5/0/0/150031173/img-3287.jpg" alt="United Nations General Assembly hall">
+        <img src="https://gabrielcouto.weebly.com/uploads/1/5/0/0/150031173/img-3288.jpg" alt="United Nations headquarters">
+      </div>
+    </div>
+
+    <div class="item reveal">
+      <h3>Educating Syrian Refugee Children in the Middle East and North Africa</h3>
+      <div class="meta">University of South Florida · Advised by Dr. Steven Roach</div>
+      <p>About 2.6 million of the Syrian refugees registered in the Middle East and North Africa are children, many with little or no access to education. Drawing on UNHCR qualitative data and the literature on humanitarian education, this project examined the obstacles organizations face in reaching displaced children and argues for flexible approaches suited to refugees' circumstances.</p>
+      <div class="more"><a href="files/writing-sample.pdf">Writing sample</a></div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <h2 class="reveal">Experience</h2>
+
+    <div class="item reveal">
+      <h3>UNESCO</h3>
+      <div class="meta">Research Assistant</div>
+      <p>Mixed-methods research to analyze and design education interventions and policy, combining quasi-experimental and experimental approaches with econometrics, statistics, and machine learning.</p>
+    </div>
+
+    <div class="item reveal">
+      <h3>Lemann Center, Stanford University</h3>
+      <div class="meta">Research Assistant</div>
+      <p>Research on education in Brazil, applying mixed methods to the analysis and design of education policy.</p>
+    </div>
+
+    <div class="item reveal">
+      <h3>Brazilian Student Association (BRASA)</h3>
+      <div class="meta">Global Membership Manager · 2022 – 2023</div>
+      <p>BRASA is the largest association of Brazilian students abroad. Its global membership program served 20,000 students in 50 cities and built the organization's first centralized membership database, supporting growth to more than 90 chapters, alongside two global conferences in São Paulo and Chicago.</p>
+      <div class="thumbs" data-remote>
+        <img src="https://gabrielcouto.weebly.com/uploads/1/5/0/0/150031173/whatsapp-image-2024-09-11-at-11-42-15.jpeg" alt="BRASA conference group photo">
+        <img src="https://gabrielcouto.weebly.com/uploads/1/5/0/0/150031173/whatsapp-image-2024-09-11-at-11-42-14.jpeg" alt="BRASA team">
+      </div>
+    </div>
+
+    <div class="item reveal">
+      <h3>Mappit</h3>
+      <div class="meta">Summer Intern · 2023</div>
+      <p>Mappit's Home Runners program helps Brazilian students finishing their studies abroad return to the job market in Brazil, connecting them with companies such as BMW, Credit Suisse, and XP Investimentos.</p>
+      <div class="thumbs" data-remote>
+        <img src="https://gabrielcouto.weebly.com/uploads/1/5/0/0/150031173/whatsapp-image-2024-09-11-at-12-12-28.jpeg" alt="Mappit event">
+      </div>
+    </div>
+
+    <p class="note reveal"><b>Also:</b> Youth Delegate, World Bank Group Youth Summit (2024).</p>
+  </section>
+
+  <section id="activism">
+    <h2 class="reveal">Activism</h2>
+
+    <div class="item reveal">
+      <h3>Information Literacy in Brazilian Favelas</h3>
+      <div class="meta">Public schools in Brazil · 2022 – present</div>
+      <p>Brazil scores well below the OECD average in reading, and misinformation is widespread. Since 2022, visits to public schools in favelas have brought information literacy training to more than 300 students, along with conversations with teachers and staff about students' needs and the role of education in staying in school. The work also inspired an ongoing research project on the link between information literacy and authoritarianism in Brazil.</p>
+      <div class="thumbs" data-remote>
+        <img src="https://gabrielcouto.weebly.com/uploads/1/5/0/0/150031173/62cc76ce-fd42-4db3-a02e-9b80517a1255.jpg" alt="Classroom visit">
+        <img src="https://gabrielcouto.weebly.com/uploads/1/5/0/0/150031173/img-0759-2.jpg" alt="Talk at a public school">
+        <img src="https://gabrielcouto.weebly.com/uploads/1/5/0/0/150031173/70d3e2f2-43cf-4313-aa44-f8135346b746.jpg" alt="Meeting with school staff">
+      </div>
+    </div>
+
+    <div class="item reveal">
+      <h3>Student Visa Advocacy</h3>
+      <div class="meta">Brazil · 2021</div>
+      <p>When U.S. consulates in Brazil closed during the pandemic, thousands of students admitted to American universities risked losing their places. A campaign by 2,000 students pressed the U.S. government and Brazil's Ministry of Foreign Affairs and gained national attention through SBT News and newspaper coverage. The consulates reopened a month later.</p>
+      <div class="more"><a href="https://www.em.com.br/app/noticia/gerais/2021/04/24/interna_gerais,1260064/pandemia-e-obstaculo-ao-sonho-de-estudar-nos-eua.shtml" target="_blank" rel="noopener">Press coverage (Estado de Minas)</a></div>
+    </div>
+
+    <div class="item reveal">
+      <h3>English for All &amp; Animus School</h3>
+      <div class="meta">Brazil · COVID-19 pandemic</div>
+      <p>Free tutoring in math, physics, English, and arts for more than 65 learners aged 15 to 60 from low-income communities while schools were closed. The program combined academic support with human development activities to improve school performance and job prospects.</p>
+      <div class="thumbs" data-remote>
+        <img src="https://gabrielcouto.weebly.com/uploads/1/5/0/0/150031173/published/img-0665-2.jpg" alt="Tutoring class">
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <h2 class="reveal">Contact</h2>
+    <p class="reveal">I'm always happy to talk about education policy, development, and research collaborations. Reach me at <a href="mailto:couto@stanford.edu">couto@stanford.edu</a>.</p>
+  </section>
+
+</main>
+
+<footer><div class="wrap">© 2026 Gabriel Couto</div></footer>
+
+<div class="lb" id="lb"><img id="lbimg" alt=""></div>
+
+<script>
+  // Hide any photo that fails to load, and an empty photo row
+  document.querySelectorAll(".thumbs img").forEach(img => {
+    const drop = () => { const row = img.parentElement; img.remove(); if (row && !row.querySelector("img")) row.remove(); };
+    if (img.complete && img.naturalWidth === 0) drop(); else img.addEventListener("error", drop);
+  });
+
+  // Lightbox
+  const lb = document.getElementById("lb"), lbimg = document.getElementById("lbimg");
+  document.addEventListener("click", e => {
+    if (e.target.matches(".thumbs img")) { lbimg.src = e.target.src; lbimg.alt = e.target.alt; lb.classList.add("open"); }
+    else if (lb.contains(e.target)) lb.classList.remove("open");
+  });
+  document.addEventListener("keydown", e => { if (e.key === "Escape") lb.classList.remove("open"); });
+
+  // Scroll reveal
+  const io = new IntersectionObserver(entries => entries.forEach(en => {
+    if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); }
+  }), { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+  document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+
+  // Highlight current section in nav
+  const navLinks = [...document.querySelectorAll("nav ul a")];
+  addEventListener("scroll", () => {
+    let cur = null;
+    navLinks.forEach(a => { const s = document.querySelector(a.getAttribute("href")); if (s && s.getBoundingClientRect().top < 140) cur = a; });
+    navLinks.forEach(a => a.classList.toggle("active", a === cur));
+  }, { passive: true });
+</script>
+</body>
+</html>
